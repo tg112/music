@@ -104,37 +104,45 @@
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input
+              <vee-field
                 type="email"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Email"
+                name="email"
               />
+              <ErrorMessage class="text-red-600" name="email" />
             </div>
             <!-- Age -->
             <div class="mb-3">
               <label class="inline-block mb-2">Age</label>
-              <input
+              <vee-field
                 type="number"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+                name="age"
               />
+              <ErrorMessage class="text-red-600" name="age" />
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
+              <vee-field
                 type="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Password"
+                name="password"
               />
+              <ErrorMessage class="text-red-600" name="password" />
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Confirm Password</label>
-              <input
+              <vee-field
                 type="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Confirm Password"
+                name="confirm_password"
               />
+              <ErrorMessage class="text-red-600" name="confirm_password" />
             </div>
             <!-- Country -->
             <div class="mb-3">
@@ -179,10 +187,10 @@ export default {
       tab: "login",
       schema: {
         name: "required|min:3|max:100|alpha_spaces",
-        email: "",
-        age: "",
-        password: "",
-        confirm_password: "",
+        email: "required|email",
+        age: "required|min_value:18|max_value:100",
+        password: "required|min:3|max:100",
+        confirm_password: "confirmed:@password",
         country: "",
         tos: "",
       },
