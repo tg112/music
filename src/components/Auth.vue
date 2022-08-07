@@ -62,24 +62,32 @@
           </ul>
 
           <!-- Login Form -->
-          <form v-show="tab === 'login'">
+          <form
+            v-show="tab === 'login'"
+            :validation-schema="schema"
+            @submit="login"
+          >
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input
+              <vee-field
                 type="email"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Email"
+                name="email"
               />
+              <ErrorMessage class="text-red-600" name="email" />
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
+              <vee-field
                 type="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Password"
+                name="password"
               />
+              <ErrorMessage class="text-red-600" name="password" />
             </div>
             <button
               type="submit"
@@ -93,6 +101,7 @@
             v-show="tab === 'register'"
             :validation-schema="schema"
             @submit="register"
+            :initial-values="userData"
           >
             <!-- Name -->
             <div class="mb-3">
@@ -130,11 +139,20 @@
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
               <vee-field
-                type="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Password"
                 name="password"
-              />
+                :bails="false"
+                v-slot="{ field, errors }"
+              >
+                <input
+                  type="password"
+                  placeholder="Password"
+                  class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+                  v-bind="field"
+                />
+                <div class="text-red-600" v-for="error in errors" :key="error">
+                  {{ error }}
+                </div>
+              </vee-field>
               <ErrorMessage class="text-red-600" name="password" />
             </div>
             <!-- Confirm Password -->
@@ -200,10 +218,13 @@ export default {
         name: "required|min:3|max:100|alpha_spaces",
         email: "required|email",
         age: "required|min_value:18|max_value:100",
-        password: "required|min:3|max:100",
-        confirm_password: "confirmed:@password",
-        country: "required|excluded:Antarctica",
+        password: "required|min:9|max:100|excluded:password",
+        confirm_password: "password_mismatch:@password",
+        country: "required|country_excluded:Antarctica",
         tos: "required",
+      },
+      userData: {
+        country: "USA",
       },
     };
   },
@@ -216,6 +237,9 @@ export default {
   },
   methods: {
     register(values) {
+      console.log(values);
+    },
+    login(values) {
       console.log(values);
     },
   },
