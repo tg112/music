@@ -22,7 +22,7 @@
       <div v-show="showForm">
         <div
           class="text-white text-center font-bold p-4 mb-4"
-          v-if="'show_alert'"
+          v-if="show_alert"
           :class="alert_variant"
         >
           {{ alert_message }}
@@ -39,6 +39,7 @@
               class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
               placeholder="Enter Song Title"
               name="modified_name"
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="text-red-600" name="modified_name" />
           </div>
@@ -49,6 +50,7 @@
               class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
               placeholder="Enter Genre"
               name="genre"
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="text-red-600" name="genre" />
           </div>
@@ -94,6 +96,9 @@ export default {
       type: Function,
       required: true,
     },
+    updateUnsavedFlag: {
+      type: Function,
+    },
   },
   data() {
     return {
@@ -105,7 +110,7 @@ export default {
       in_submission: false,
       show_alert: false,
       alert_variant: "bg-blue-500",
-      alert_message: "Please wait! Updating song info.",
+      alert_message: "",
     };
   },
   methods: {
@@ -122,6 +127,8 @@ export default {
         this.alert_message = "Something went wrong! Try later agein";
       }
       this.updateSong(this.index, values);
+      this.updateUnsavedFlag(false);
+
       this.in_submission = false;
       this.alert_variant = "bg-green-500";
       this.alert_message = "Success updating!";
