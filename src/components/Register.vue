@@ -106,6 +106,8 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import userUserStore from "@/stores/user";
 export default {
   name: "RegisterForm",
   data() {
@@ -129,15 +131,27 @@ export default {
     };
   },
   methods: {
-    register(values) {
+    ...mapActions(userUserStore, {
+      createUser: "register",
+    }),
+    async register(values) {
       this.reg_show_alert = true;
       this.reg_in_submission = true;
       this.reg_alert_variant = "bg-blue-500";
       this.reg_alert_msg = "Please wait! Your account is being created.";
 
-      (this.reg_alert_variant = "bg-green-500"),
-        (this.reg_alert_msg = "Success! Your account has been created");
-      console.log(values);
+      try {
+        await this.createUser(values);
+      } catch (e) {
+        this.reg_in_submission = false;
+        this.reg_alert_variant = "bg-red-500";
+        this.reg_alert_msg = "An unexepected error occured";
+        return;
+      }
+
+      this.reg_alert_variant = "bg-green-500";
+      this.reg_alert_msg = "Success! Your account has been created";
+      window.location.reload();
     },
   },
 };

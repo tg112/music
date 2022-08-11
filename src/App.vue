@@ -272,11 +272,23 @@
 </template>
 
 <script>
+import { mapWritableState } from "pinia";
 import AppHeader from "./components/AppHeader.vue";
 import Auth from "./components/Auth.vue";
+import useUserStore from "@/stores/user";
+import { auth } from "@/includes/firebase";
+
 export default {
   name: "App",
   components: { AppHeader, Auth },
+  computed: {
+    ...mapWritableState(useUserStore, ["userLoggedIn"]),
+  },
+  created() {
+    if (auth.currentUser) {
+      this.userLoggedIn = true;
+    }
+  },
 };
 </script>
 
