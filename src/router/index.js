@@ -15,7 +15,13 @@ const routes = [
     path: "/about",
     component: AboutView,
   },
-  { name: "manage", path: "/manage-music", component: ManageView },
+  {
+    name: "manage",
+    // alias: "/manage",
+    path: "/manage-music",
+    component: ManageView,
+  },
+  // pathを変更した際に、飛ばしたいパスにredirectさせる
   {
     path: "/manage",
     redirect: { name: "manage" },
