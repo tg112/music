@@ -30,7 +30,6 @@ import useModalStore from "@/stores/modal";
 export default {
   name: "AppHeader",
   computed: {
-    // mapStoresに定義したstoreを渡すと、storeのid + Storeの形で参照できる様になる
     ...mapStores(useModalStore),
   },
   methods: {
