@@ -15,7 +15,16 @@ const routes = [
     path: "/about",
     component: AboutView,
   },
-  { name: "manage", path: "/manage", component: ManageView },
+  { name: "manage", path: "/manage-music", component: ManageView },
+  {
+    path: "/manage",
+    redirect: { name: "manage" },
+  },
+  // 404の場合、homeに飛ばす
+  {
+    path: "/:catchAll(.*)*",
+    redirect: { name: "home" },
+  },
 ];
 
 const router = createRouter({
