@@ -20,6 +20,9 @@ const routes = [
     // alias: "/manage",
     path: "/manage-music",
     component: ManageView,
+    beforeEnter: (to, from, next) => {
+      next();
+    },
   },
   // pathを変更した際に、飛ばしたいパスにredirectさせる
   {
@@ -37,6 +40,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   linkExactActiveClass: "text-yellow-500",
+});
+
+router.beforeEach((to, from, next) => {
+  next();
 });
 
 export default router;
