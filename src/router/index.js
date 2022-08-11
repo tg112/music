@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import AboutView from "@/views/AboutView.vue";
 import ManageView from "@/views/ManageView.vue";
+import useUserStore from "@/stores/user";
 
 const routes = [
   {
@@ -22,6 +23,9 @@ const routes = [
     component: ManageView,
     beforeEnter: (to, from, next) => {
       next();
+    },
+    meta: {
+      requiresAuth: true,
     },
   },
   // pathを変更した際に、飛ばしたいパスにredirectさせる
@@ -43,7 +47,16 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  next();
+  if (!to.meta.requiresAuth) {
+    next();
+    return;
+  }
+  const store = useUserStore();
+  if (store.userLoggedIn) {
+    next();
+  } else {
+    next({ name: "home" });
+  }
 });
 
 export default router;
