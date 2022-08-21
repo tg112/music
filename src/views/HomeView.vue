@@ -28,7 +28,7 @@
     <div class="bg-white rounded border border-gray-200 relative flex flex-col">
       <div
         class="px-6 pt-6 pb-5 font-bold border-b border-gray-200"
-        v-icon.right.yellow="'headphones-alt'"
+        v-icon-secondary="{ icon: 'headphones-alt', right: true }"
       >
         <span class="card-title">Songs</span>
         <!-- Icon -->
@@ -48,9 +48,13 @@
 
 <script>
 import SongItem from "../components/SongItem.vue";
+import IconSecondary from "../directives/icon-secondary";
 import { songsCollection } from "../includes/firebase";
 export default {
   components: { SongItem },
+  directives: {
+    "icon-secondary": IconSecondary,
+  },
   name: "Home",
   data() {
     return {
