@@ -74,7 +74,6 @@ export default {
 
       if (bottomOfWindow) {
         this.getSongs();
-        console.log("hello");
       }
     },
     async getSongs() {
@@ -106,7 +105,6 @@ export default {
           ...snapshot.data(),
         });
       });
-      console.log(this.songs);
       this.pendingRequest = false;
     },
   },
