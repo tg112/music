@@ -5,7 +5,7 @@
 // prevNode - the previous vnode object before the direcitve was updated. (applies to beforeUpdate and updated hooks only)
 export default {
   beforeMount(el, binding) {
-    let iconClass = `fa fa-${binding.value} float-right text-yellow-400 text-2xl`;
+    let iconClass = `fa fa-${binding.value} text-2xl`;
 
     if (binding.arg === "full") {
       iconClass = binding.value;
