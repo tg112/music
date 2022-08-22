@@ -8,5 +8,11 @@
   "register": {
     "accept": "I accept Music's {0}",
     "tos": "Terms of Service"
+  },
+  "manage": {
+    "song": "My Song"
+  },
+  "about": {
+    "description": "This is an about page"
   }
 }

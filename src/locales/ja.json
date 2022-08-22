@@ -4,5 +4,11 @@
   },
   "song": {
     "comment_count": "{count}件"
+  },
+  "manage": {
+    "song": "曲"
+  },
+  "about": {
+    "description": "アバウトページです"
   }
 }
