@@ -1,0 +1,14 @@
+{
+  "home": {
+    "listen": "素敵な音楽を聴こう！"
+  },
+  "song": {
+    "comment_count": "{count}件"
+  },
+  "manage": {
+    "song": "曲"
+  },
+  "about": {
+    "description": "アバウトページです"
+  }
+}
