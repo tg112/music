@@ -90,6 +90,18 @@ export default {
           return;
         }
 
+        if (!navigator.onLine) {
+          this.uploads.push({
+            task: {},
+            current_progress: 100,
+            name: file.name,
+            variant: "bg-red-400",
+            icon: "fas fa-times",
+            text_class: "text-red-400",
+          });
+          return;
+        }
+
         // references
         // An object that points to a location in your application
         // Allows you to read/write references
