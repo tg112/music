@@ -129,17 +129,19 @@ export default {
       sort: "1",
     };
   },
-  async created() {
-    const docSnapShot = await songsCollection.doc(this.$route.params.id).get();
-    if (!docSnapShot.exists) {
-      this.$router.push({ name: "home" });
-      return;
-    }
+  async beforeRouteEnter(to, from, next) {
+    const docSnapShot = await songsCollection.doc(to.params.id).get();
+    next((vm) => {
+      if (!docSnapShot.exists) {
+        vm.$router.push({ name: "home" });
+        return;
+      }
 
-    const { sort } = this.$route.query;
-    this.sort = sort === "1" || sort === "2" ? sort : "1";
-    this.song = docSnapShot.data();
-    this.getComments();
+      const { sort } = vm.$route.query;
+      vm.sort = sort === "1" || sort === "2" ? sort : "1";
+      vm.song = docSnapShot.data();
+      vm.getComments();
+    });
   },
   methods: {
     ...mapActions(usePlayerStore, ["newSong"]),
